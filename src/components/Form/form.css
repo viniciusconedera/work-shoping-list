@@ -3,6 +3,9 @@
     border: 1px solid #777
 }
 
+.btn-gray {
+    background-color: lightgray
+}
 
 .marked {
     text-decoration: line-through;
