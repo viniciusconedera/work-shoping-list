@@ -14,10 +14,10 @@ export default props => {
     const categories = props.categories || []
 
     return (
-        <div role='form' className='form row justify-content-center'>
+        <form className='form row justify-content-center'>
             <div className='col-7'>
-                <input id='description' className='form-control'
-                placeholder='Adicionar um item'
+                <input id='name' className='form-control'
+                placeholder='Adicionar um item' name='name'
                 onChange={props.handleChangeName}
                 value={props.item.name}
                 onKeyUp={keyHandler} />
@@ -25,7 +25,7 @@ export default props => {
             <div className='col-3'>
             <select className="btn dropdown-toggle"
             onChange={props.handleChangeCategory}
-            value={props.item.categoryId}>
+            value={props.item.categoryId} name='category'>
                 <option value='0'>Selecione</option>
                 {categories.map(category => 
                 <option key={category.id} value={category.id}>{category.name}</option>)}
@@ -37,6 +37,6 @@ export default props => {
                 <button className='btn btn-gray fa fa-close'
                 onClick={props.handleClear} />
             </div>
-        </div>
+        </form>
     )
 }
