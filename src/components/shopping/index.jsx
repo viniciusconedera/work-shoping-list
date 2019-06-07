@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import StorageLoader from '../../service/localStorage'
+import {getToken} from '../../providers/storafeToken'
 
 import {getCategories} from '../../service/categories'
 import {getItems, addItem, deleteItem} from '../../service/items'
@@ -83,23 +84,18 @@ class Shopping extends Component {
 
   async refresh() {
     const categories = await getCategories()
-    let list = await getItems();
-    console.log(categories.find(cat => cat.id === 1))
-    list = list.map(item => {
-      return item = {...item, 
-        category: categories.find(cat => cat.id === Number(item.categoryId))}
-    })
-    this.setState({categories, list})
-
-    
-    client('items')
-    .then(response => {
-      console.log(response)
-      this.setState({...this.state, list: response.data})})
-    .catch(() => {
-      alert('\t\tVoce não esta logado\n'+
-      'O sistema usará o armazenamento local')
-    })
+    this.setState({categories})
+    if (getToken()) {
+      const items = await client('items')
+      this.setState({list: items.data})
+    } else {
+      let list = await getItems();
+      list = list.map(item => {
+        return item = {...item, 
+          category: categories.find(cat => cat.id === Number(item.categoryId))}
+      })
+      this.setState({list})
+    }
   }
 
   render() {

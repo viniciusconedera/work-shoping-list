@@ -18,7 +18,7 @@ class Login extends Component {
         })
     }
 
-    login = (e) => {
+    login = e => {
         e.preventDefault()
         const {email, password} = this.state
         const{history} = this.props
